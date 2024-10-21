@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16887e2887334b7584d049c9a9677b5b, type: 3}
+  m_Name: Spin-16
+  m_EditorClassIdentifier: 
+  spinNo: 16
+  sliceRewardContents:
+  - {fileID: 11400000, guid: 8cc6b8cd7b12d4885a76a17277b15517, type: 2}
+  - {fileID: 11400000, guid: 8cc6b8cd7b12d4885a76a17277b15517, type: 2}
+  - {fileID: 11400000, guid: 8cc6b8cd7b12d4885a76a17277b15517, type: 2}
+  - {fileID: 11400000, guid: d1924fcdaa9874eceab46457ee3b9f75, type: 2}
+  - {fileID: 11400000, guid: d1924fcdaa9874eceab46457ee3b9f75, type: 2}
+  - {fileID: 11400000, guid: d9f86d48868504f838fcdf6339fc06c2, type: 2}
+  - {fileID: 11400000, guid: 0e528b2664a5049a0bc89b85cce91db9, type: 2}
+  - {fileID: 11400000, guid: e96c5a48618f149fca8677ff13d56f79, type: 2}

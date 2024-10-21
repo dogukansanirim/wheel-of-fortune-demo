@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI_weapons
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 9d18dfbcaeaf9474087e3d42233bf9ee, type: 3}
+    - {fileID: 2800000, guid: 3c376a0fa7345a64cba31573e31183a6, type: 3}
+    - {fileID: 2800000, guid: 23f1ea505e463f1429213499d99d2de2, type: 3}
+    - {fileID: 2800000, guid: 53e0655eb2a83894a9293affeb8fc7cf, type: 3}
+    - {fileID: 2800000, guid: f9ec6a2bed75d8e46b2a5811461c333a, type: 3}
+    - {fileID: 2800000, guid: 5e72a74a351e42b4d85c0c94f62f1494, type: 3}
+    - {fileID: 2800000, guid: b077458d42648f549ab44cef8304570d, type: 3}
+    - {fileID: 2800000, guid: 29881cdec6c30a945884483d5b782a60, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 23f1ea505e463f1429213499d99d2de2, type: 3}
+  - {fileID: 21300000, guid: 5e72a74a351e42b4d85c0c94f62f1494, type: 3}
+  - {fileID: 21300000, guid: f9ec6a2bed75d8e46b2a5811461c333a, type: 3}
+  - {fileID: 21300000, guid: 9d18dfbcaeaf9474087e3d42233bf9ee, type: 3}
+  - {fileID: 21300000, guid: b077458d42648f549ab44cef8304570d, type: 3}
+  - {fileID: 21300000, guid: 53e0655eb2a83894a9293affeb8fc7cf, type: 3}
+  - {fileID: 21300000, guid: 29881cdec6c30a945884483d5b782a60, type: 3}
+  - {fileID: 21300000, guid: 3c376a0fa7345a64cba31573e31183a6, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - UI_Icon_Renders_tier1_shotgun
+  - UI_Icon_Renders_tier3_shotgun
+  - UI_Icon_Renders_tier2_rifle
+  - ui_icon_mle_bayonet_easter_time
+  - UI_Icon_Renders_tier3_smg
+  - UI_Icon_Renders_tier2_mle
+  - UI_Icon_Renders_tier3_sniper
+  - ui_icon_mle_bayonet_summer_vice
+  m_RenderDataMap: {}
+  m_Tag: UI_weapons
+  m_IsVariant: 0
