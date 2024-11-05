@@ -7,5 +7,11 @@ namespace WheelOfFortune.Single
     {
         public Action TriggerStateMachine;
         public Action<WheelStateName> TriggerStateMachineWithName;
+
+        public void Reset()
+        {
+            TriggerStateMachine = null;
+            TriggerStateMachineWithName = null;
+        }
     }
 }

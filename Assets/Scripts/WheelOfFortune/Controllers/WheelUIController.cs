@@ -8,7 +8,6 @@ using WheelOfFortune.Constants;
 using WheelOfFortune.Reward.Content;
 using WheelOfFortune.Single;
 using WheelOfFortune.Slice;
-using WheelOfFortune.State;
 using WheelOfFortune.Zone;
 using Random = UnityEngine.Random;
 
@@ -48,7 +47,6 @@ namespace WheelOfFortune.Controllers
 
         private int _spinNo = -1;
         public bool IsLastSpin => _spinNo == wheelSettings.SpinContents.Count - 1;
-        
         
         private bool _isFadeInOutActive;
 
@@ -131,7 +129,6 @@ namespace WheelOfFortune.Controllers
         {
             ConfigureZonePanel();
             WheelSingleton.Instance.WheelUIController = this;
-            new WheelStateMachine();
         }
         
         #region FadeInOut
@@ -240,8 +237,6 @@ namespace WheelOfFortune.Controllers
             
             wheelRotateRectTransform.rotation = Quaternion.identity;
             _currentSpinRewards = wheelSettings.SpinContents[_spinNo].SliceRewards;
-
-            Debug.Log(wheelSettings.SpinContents[0].SliceRewards);
             
             for (var i = 0; i < _currentSpinRewards.Count; i++)
             {
@@ -332,7 +327,11 @@ namespace WheelOfFortune.Controllers
 
         #endregion
 
-        
+        private void OnDestroy()
+        {
+            spinButton.onClick.RemoveListener(SpinBtnOnClick);
+            exitButton.onClick.RemoveListener(ExitBtnOnClick);
+        }
 
 #if UNITY_EDITOR
         private void OnValidate()
@@ -340,13 +339,30 @@ namespace WheelOfFortune.Controllers
             EditorApplication.delayCall += () =>
             {
                 if (this == null) return;
+
+                GameObject safeZoneInfoTmpGO = GameObject.Find(OnValidateGameObjectName.SafeZoneInfoTmp);
+                if (safeZoneInfoTmpGO != null) safeZoneInfoTmp = safeZoneInfoTmpGO.GetComponent<TextMeshProUGUI>();
+                else Debug.Log(OnValidateGameObjectName.SafeZoneInfoTmp + "couldn't be find active on the scene");
                 
-                safeZoneInfoTmp = GameObject.Find(OnValidateGameObjectName.SafeZoneInfoTmp).GetComponent<TextMeshProUGUI>();
-                superZoneInfoTmp = GameObject.Find(OnValidateGameObjectName.SuperZoneInfoTmp).GetComponent<TextMeshProUGUI>();
-                fadeInOutImage = GameObject.Find(OnValidateGameObjectName.FadeInOutImage).GetComponent<Image>();
-                wheelRotateRectTransform = GameObject.Find(OnValidateGameObjectName.WheelRotateRectTransform).GetComponent<RectTransform>();
-                spinButton = GameObject.Find(OnValidateGameObjectName.WheelSpinBtn).GetComponent<Button>();
-                exitButton = GameObject.Find(OnValidateGameObjectName.WheelExitBtn).GetComponent<Button>();
+                GameObject superZoneInfoTmpGO = GameObject.Find(OnValidateGameObjectName.SuperZoneInfoTmp);
+                if (superZoneInfoTmpGO != null) superZoneInfoTmp = superZoneInfoTmpGO.GetComponent<TextMeshProUGUI>();
+                else Debug.Log(OnValidateGameObjectName.SuperZoneInfoTmp + "couldn't be find active on the scene");
+                
+                GameObject fadeInOutImageGO = GameObject.Find(OnValidateGameObjectName.FadeInOutImage);
+                if (fadeInOutImageGO != null) fadeInOutImage = fadeInOutImageGO.GetComponent<Image>();
+                else Debug.Log(OnValidateGameObjectName.FadeInOutImage + "couldn't be find active on the scene");
+                
+                GameObject wheelRotateRectTransformGO = GameObject.Find(OnValidateGameObjectName.WheelRotateRectTransform);
+                if (wheelRotateRectTransformGO != null) wheelRotateRectTransform = wheelRotateRectTransformGO.GetComponent<RectTransform>();
+                else Debug.Log(OnValidateGameObjectName.WheelRotateRectTransform + "couldn't be find active on the scene");
+                
+                GameObject spinButtonGO = GameObject.Find(OnValidateGameObjectName.WheelSpinBtn);
+                if (spinButtonGO != null) spinButton = spinButtonGO.GetComponent<Button>();
+                else Debug.Log(OnValidateGameObjectName.WheelSpinBtn + "couldn't be find active on the scene");
+                
+                GameObject exitButtonGO = GameObject.Find(OnValidateGameObjectName.WheelExitBtn);
+                if (exitButtonGO != null) exitButton = exitButtonGO.GetComponent<Button>();
+                else Debug.Log(OnValidateGameObjectName.WheelExitBtn + "couldn't be find active on the scene");
                 
                 EditorUtility.SetDirty(this);
             };

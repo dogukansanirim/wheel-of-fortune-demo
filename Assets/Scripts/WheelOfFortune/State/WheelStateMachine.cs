@@ -25,6 +25,7 @@ namespace WheelOfFortune.State
             WheelSingleton.Instance.Signal.TriggerStateMachine += Trigger;
             WheelSingleton.Instance.Signal.TriggerStateMachineWithName += TriggerWithName;
             SetStateMachine();
+            ChangeState(_initState);
         }
 
         private void SetStateMachine()
@@ -118,8 +119,6 @@ namespace WheelOfFortune.State
                     [_emptyState] = () => WheelSingleton.Instance.WheelUIController.IsFadeInOutActive == false
                 }
             );
-            
-            ChangeState(_initState);
         }
 
         private void ChangeState(WheelState state)
@@ -129,6 +128,7 @@ namespace WheelOfFortune.State
             _currentState = state;
             _currentState?.Enter();
             _isStateChanging = false;
+            Trigger();
         }
 
         private void Trigger()
@@ -143,6 +143,12 @@ namespace WheelOfFortune.State
             if (_isStateChanging || _currentState == null || _currentState.StateName != name) return;
             WheelState nextState = _currentState.CheckExit();
             if (nextState != null) ChangeState(nextState);
+        }
+
+        public void Reset()
+        {
+            WheelSingleton.Instance.Signal.TriggerStateMachine -= Trigger;
+            WheelSingleton.Instance.Signal.TriggerStateMachineWithName -= TriggerWithName;
         }
     }
 }
