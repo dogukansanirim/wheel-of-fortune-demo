@@ -12,7 +12,7 @@ namespace WheelOfFortune
         [SerializeField] private List<WheelSpinContent> spinContents;
         [SerializeField] private int sliceCount;
         [SerializeField] private float sliceLoadDuration;
-        [SerializeField] [Range(0,1)] private float sliceAngleMaxDeflectionRatio;
+        [SerializeField] [Range(0,0.5f)] private float sliceAngleMaxDeflectionRatio;
         [SerializeField] private int spinLoopCount;
         [SerializeField] private float spinDuration;
         [SerializeField] private Ease spinEase;

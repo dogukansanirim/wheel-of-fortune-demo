@@ -10,17 +10,12 @@ namespace WheelOfFortune.Controllers
         
         private void Start()
         {
-            WheelSingleton.Instance.Signal.WheelSpinStart += PlayWheelSpinSound;
+            WheelSingleton.Instance.WheelSoundController = this;
         }
 
         public void PlayWheelSpinSound()
         {
             wheelSpinSoundAudioSource.Play();
-        }
-
-        private void OnDestroy()
-        {
-            WheelSingleton.Instance.Signal.WheelSpinStart -= PlayWheelSpinSound;
         }
     }
 }

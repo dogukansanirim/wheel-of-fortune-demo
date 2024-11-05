@@ -71,6 +71,11 @@ namespace WheelOfFortune.State
             );
             
             _spinState.SetState(
+                enterAction: () =>
+                {
+                    WheelSingleton.Instance.WheelSoundController.PlayWheelSpinSound();
+                    WheelSingleton.Instance.WheelUIController.SpinWheel();
+                },
                 exitConditions: new Dictionary<WheelState, Func<bool>>
                 {
                     [_rewardState] = () => !WheelSingleton.Instance.WheelUIController.IsWheelSpinning && !WheelSingleton.Instance.WheelUIController.IsCurrentRewardBomb,

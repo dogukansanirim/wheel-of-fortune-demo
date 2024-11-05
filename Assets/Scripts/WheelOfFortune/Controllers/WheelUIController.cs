@@ -296,15 +296,17 @@ namespace WheelOfFortune.Controllers
         private void SpinBtnOnClick()
         {
             IsWheelSpinning = true;
+        }
+
+        public void SpinWheel()
+        {
             int finishedSlice = Random.Range(0, wheelSettings.SliceCount); 
             //to give random finished angle feeling
-            float finishedAngle = Random.Range(wheelSettings.SingleSliceAngle * -wheelSettings.SliceAngleMaxDeflectionRatio, wheelSettings.SingleSliceAngle * wheelSettings.SliceAngleMaxDeflectionRatio);
-            float rotateAngle = -360f * wheelSettings.SpinLoopCount + -finishedSlice * wheelSettings.SingleSliceAngle - finishedAngle;
-            
-            WheelSingleton.Instance.Signal.WheelSpinStart.Invoke();
+            float finishedAngleAddition = Random.Range(wheelSettings.SingleSliceAngle * -wheelSettings.SliceAngleMaxDeflectionRatio, wheelSettings.SingleSliceAngle * wheelSettings.SliceAngleMaxDeflectionRatio);
+            float rotateAngle = 360f * wheelSettings.SpinLoopCount + finishedSlice * wheelSettings.SingleSliceAngle + finishedAngleAddition;
             
             wheelRotateRectTransform.DORotate(
-                        new Vector3(0f, 0f, rotateAngle),
+                        new Vector3(0f, 0f, -rotateAngle),
                         wheelSettings.SpinDuration,
                         RotateMode.FastBeyond360)
                     .SetEase(wheelSettings.SpinEase).onComplete =
