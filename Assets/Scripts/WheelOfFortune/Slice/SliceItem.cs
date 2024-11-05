@@ -17,25 +17,8 @@ namespace WheelOfFortune.Slice
         {
             iconImage.sprite = iconSprite;
             iconImage.SetNativeSize();
-
             Value = value;
-            
-            switch (value)
-            {
-                case <= 0:
-                    valueText.text = ""; 
-                    break;
-                case >= 1_000_000:
-                    valueText.text = "x" + value/1_000_000 + "M";
-                    break;
-                case >= 1_000:
-                    valueText.text = "x" + value/1_000 + "K";
-                    break;
-                default:
-                    valueText.text = "x" + value;
-                    break;
-            }
-            
+            valueText.text = Helper.CurrencyHelper.DigitStringFormatWithLetter(value);
             gameObject.SetActive(true);
         }
         

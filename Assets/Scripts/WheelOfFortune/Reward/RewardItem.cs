@@ -48,21 +48,7 @@ namespace WheelOfFortune.Reward
 
         private void SetValueText(int value)
         {
-            string valueString = "" + value;
-            
-            switch (valueString.Length)
-            {
-                case <= 3:
-                    break;
-                case <= 6:
-                    valueString = valueString.Insert(valueString.Length - 3, ",");
-                    break;
-                case <= 9:
-                    valueString = valueString.Insert(2, ",").Insert(valueString.Length-7, ",");
-                    break;
-            }
-            
-            valueTextTmp.text = valueString;
+            valueTextTmp.text = Helper.CurrencyHelper.DigitStringFormatWithComma(value);
         }
 
         private IEnumerator _valueChangeAnimation;
