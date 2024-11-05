@@ -3708,7 +3708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Padding: {x: 20, y: 0, z: 20, w: 0}
   m_Softness: {x: 0, y: 0}
 --- !u!1 &1176062681
 GameObject:
@@ -6374,7 +6374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelSettings: {fileID: 11400000, guid: df4963c25a1875642a4075ecf8969cf5, type: 2}
-  zoneNumberPrefab: {fileID: 786028293594257809, guid: 36a1ccdb2b49b4ac8a0f9ee2b5f2d08a,
+  zoneNumberPrefab: {fileID: 1878995163494813387, guid: 36a1ccdb2b49b4ac8a0f9ee2b5f2d08a,
     type: 3}
   zoneNumberBlockRectTransform: {fileID: 158023777}
   sliceItems:
@@ -6426,8 +6426,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf5c42955da480c9dc436d35f689df9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rewardPanelSettings: {fileID: 11400000, guid: 2b6d65455eb9140229a62ad35d1a6988,
+    type: 2}
   rewardPanelRectTransform: {fileID: 2011481560}
-  rewardItemPrefab: {fileID: 5203967634952959113, guid: 274bf1e236a924d5e8d34ae4fa586aa0,
+  rewardItemPrefab: {fileID: 6087262875062635951, guid: 274bf1e236a924d5e8d34ae4fa586aa0,
     type: 3}
   rewardAnimationItemList:
   - {fileID: 1582927951}
@@ -7218,7 +7220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Padding: {x: 0, y: 20, z: 0, w: 0}
   m_Softness: {x: 0, y: 0}
 --- !u!1 &2021451623
 GameObject:

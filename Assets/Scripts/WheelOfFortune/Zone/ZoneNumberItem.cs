@@ -7,6 +7,8 @@ namespace WheelOfFortune.Zone
     {
         [SerializeField] private TextMeshProUGUI tmp;
 
+        private const float PassiveZoneNumberColorAlphaRatio = 0.4f;
+        
         public void SetText(int value, Color color)
         {
             tmp.text = "" + value;
@@ -16,7 +18,7 @@ namespace WheelOfFortune.Zone
         public void SetPassive()
         {
             Color color = tmp.color;
-            tmp.color = new Color(color.r, color.g, color.b, color.a * 0.4f);
+            tmp.color = new Color(color.r, color.g, color.b, color.a * PassiveZoneNumberColorAlphaRatio);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using WheelOfFortune.Single;
 
 namespace WheelOfFortune.Controllers
@@ -9,12 +10,17 @@ namespace WheelOfFortune.Controllers
         
         private void Start()
         {
-            WheelSingleton.Instance.WheelSoundController = this;
+            WheelSingleton.Instance.Signal.WheelSpinStart += PlayWheelSpinSound;
         }
 
         public void PlayWheelSpinSound()
         {
             wheelSpinSoundAudioSource.Play();
+        }
+
+        private void OnDestroy()
+        {
+            WheelSingleton.Instance.Signal.WheelSpinStart -= PlayWheelSpinSound;
         }
     }
 }

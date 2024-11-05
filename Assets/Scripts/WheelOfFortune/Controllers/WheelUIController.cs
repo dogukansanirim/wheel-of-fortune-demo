@@ -16,7 +16,7 @@ namespace WheelOfFortune.Controllers
     public class WheelUIController : MonoBehaviour
     {
         [SerializeField] private WheelSettings wheelSettings;
-        [SerializeField] private GameObject zoneNumberPrefab;
+        [SerializeField] private ZoneNumberItem zoneNumberPrefab;
         [SerializeField] private RectTransform zoneNumberBlockRectTransform;
         [SerializeField] private SliceItem[] sliceItems;
         [SerializeField] private RectTransform bombRectTransform;
@@ -118,8 +118,8 @@ namespace WheelOfFortune.Controllers
         private void Awake()
         {
             SetSpinButtonInteractable(false);
-            spinButton.onClick.AddListener(SpinBtnOnClick);
             SetExitButtonInteractable(false);
+            spinButton.onClick.AddListener(SpinBtnOnClick);
             exitButton.onClick.AddListener(ExitBtnOnClick);
             fadeInOutImage.color = new Color(0, 0, 0, 1);
             UnSetSliceItems();
@@ -136,7 +136,7 @@ namespace WheelOfFortune.Controllers
         public void StartFadeOut()
         {
             IsFadeInOutActive = true;
-            fadeInOutImage.DOFade(0, 2).SetEase(Ease.InCirc).onComplete = () =>
+            fadeInOutImage.DOFade(0, wheelSettings.FadeInOutDuration).SetEase(Ease.InCirc).onComplete = () =>
             {
                 IsFadeInOutActive = false;
             };
@@ -145,7 +145,7 @@ namespace WheelOfFortune.Controllers
         public void StartFadeIn()
         {
             IsFadeInOutActive = true;
-            fadeInOutImage.DOFade(1, 2).SetEase(Ease.OutCirc).onComplete = () =>
+            fadeInOutImage.DOFade(1, wheelSettings.FadeInOutDuration).SetEase(Ease.OutCirc).onComplete = () =>
             {
                 IsFadeInOutActive = false;
             };
@@ -164,7 +164,7 @@ namespace WheelOfFortune.Controllers
             
             for (var i = 0; i < wheelSettings.SpinContents.Count; i++)
             {
-                ZoneNumberItem zoneNumberItem = Instantiate(zoneNumberPrefab, zoneNumberBlockRectTransform).GetComponent<ZoneNumberItem>();
+                ZoneNumberItem zoneNumberItem = Instantiate(zoneNumberPrefab, zoneNumberBlockRectTransform);
                 _zoneNumberItems.Add(zoneNumberItem);
                 Color color = wheelSettings.BasicZoneNumberColor;
 
@@ -254,11 +254,22 @@ namespace WheelOfFortune.Controllers
                     }
                     else
                     {
-                        int minValue = reward.MinValue;
-                        int maxValue = reward.MaxValue;
-                        float spinRatio = 5 * (_spinNo + 1) / (float) wheelSettings.SpinContents.Count;
+                        //Reward Value Calculation Example
+                        //Reward Max Value = 100;
+                        //Reward Min Value = 20;
+                        //Total spin = 8;
+                        //singleSpinValueRange = (100 - 20) / 8 = 10;
+                        //spin no = 1;
+                        //spinMinValue -> 20 + 1x10 = 30;
+                        //spinMinValue -> 20 + 2x10 = 40;
+                        //Reward value -> Random.Range(30, 41);
                         
-                        value = (int) (Random.Range(minValue, maxValue + 1) * spinRatio);
+                        float singleSpinValueRange = (reward.MaxValue - reward.MinValue) / (float)wheelSettings.SpinContents.Count;
+                        
+                        int spinMinValue = (int) (reward.MinValue + singleSpinValueRange * _spinNo);
+                        int spinMaxValue = (int) (reward.MinValue + singleSpinValueRange * (_spinNo + 1));
+                        
+                        value = Random.Range(spinMinValue, spinMaxValue + 1);
                         
                         if (value < 1) value = 1;
                     }
@@ -285,11 +296,13 @@ namespace WheelOfFortune.Controllers
         private void SpinBtnOnClick()
         {
             IsWheelSpinning = true;
-            int finishedSlice = Random.Range(0, wheelSettings.SliceCount);
-            float finishedAngle = Random.Range(wheelSettings.SingleSliceAngle / -4, wheelSettings.SingleSliceAngle / 4); //to prevent wheel stop between two slices
+            int finishedSlice = Random.Range(0, wheelSettings.SliceCount); 
+            //to give random finished angle feeling
+            float finishedAngle = Random.Range(wheelSettings.SingleSliceAngle * -wheelSettings.SliceAngleMaxDeflectionRatio, wheelSettings.SingleSliceAngle * wheelSettings.SliceAngleMaxDeflectionRatio);
             float rotateAngle = -360f * wheelSettings.SpinLoopCount + -finishedSlice * wheelSettings.SingleSliceAngle - finishedAngle;
-
-            WheelSingleton.Instance.WheelSoundController.PlayWheelSpinSound();
+            
+            WheelSingleton.Instance.Signal.WheelSpinStart.Invoke();
+            
             wheelRotateRectTransform.DORotate(
                         new Vector3(0f, 0f, rotateAngle),
                         wheelSettings.SpinDuration,
@@ -322,13 +335,18 @@ namespace WheelOfFortune.Controllers
         {
             bombRectTransform.localScale = Vector3.zero;
             bombRectTransform.gameObject.SetActive(true);
-            bombRectTransform.DOScale(Vector3.one * 30, 3f).onComplete = () => IsBombAnimationOver = true;
+            bombRectTransform.DOScale(Vector3.one * wheelSettings.BombAnimationPunchValue, wheelSettings.BombAnimationDuration).onComplete = () => IsBombAnimationOver = true;
         }
 
         #endregion
 
         private void OnDestroy()
         {
+            zoneNumberBlockRectTransform.DOKill();
+            wheelRotateRectTransform.DOKill();
+            bombRectTransform.DOKill();
+            fadeInOutImage.DOKill();
+            
             spinButton.onClick.RemoveListener(SpinBtnOnClick);
             exitButton.onClick.RemoveListener(ExitBtnOnClick);
         }

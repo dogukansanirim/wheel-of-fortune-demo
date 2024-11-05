@@ -70,19 +70,6 @@ namespace WheelOfFortune.Single
                 _rewardController = value;
             }
         }
-        
-        private WheelSoundController _wheelSoundController;
-
-        public WheelSoundController WheelSoundController
-        {
-            get => _wheelSoundController;
-
-            set
-            {
-                if (_wheelSoundController != null) return;
-                _wheelSoundController = value;
-            }
-        }
 
         private void OnDestroy()
         {

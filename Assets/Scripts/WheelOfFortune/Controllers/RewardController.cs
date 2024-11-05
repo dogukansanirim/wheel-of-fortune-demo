@@ -8,8 +8,9 @@ namespace WheelOfFortune.Controllers
 {
     public class RewardController : MonoBehaviour
     {
+        [SerializeField] private RewardPanelSettings rewardPanelSettings;
         [SerializeField] private RectTransform rewardPanelRectTransform;
-        [SerializeField] private GameObject rewardItemPrefab;
+        [SerializeField] private RewardItem rewardItemPrefab;
         [SerializeField] private List<RewardAnimationItem> rewardAnimationItemList;
 
         private readonly List<RewardItem> _givenRewards = new();
@@ -34,35 +35,35 @@ namespace WheelOfFortune.Controllers
         public void ActivateCurrentReward(int value, RewardContent rewardContent, RectTransform startRectTransform)
         {
             IsRewardActive = true;
-            
-            float animationDuration = 2f;
 
             RewardItem rewardItem = _givenRewards.Find(givenReward =>
                 givenReward.RewardType == rewardContent.RewardType && givenReward.Id == rewardContent.Id);
             
             if (rewardItem == null)
             {
-                rewardItem = Instantiate(rewardItemPrefab, rewardPanelRectTransform).GetComponent<RewardItem>();
+                rewardItem = Instantiate(rewardItemPrefab, rewardPanelRectTransform);
                 _givenRewards.Add(rewardItem);
-                rewardItem.SetRewardItem(rewardContent, value, animationDuration);
-                StartRewardAnimation(rewardContent.IconSprite, animationDuration, startRectTransform, rewardItem.IconRectTransform);
+                rewardItem.SetRewardItem(rewardContent, value, rewardPanelSettings.RewardMoveAnimationDuration);
+                StartRewardAnimation(rewardContent.IconSprite, rewardPanelSettings.RewardMoveAnimationDuration, startRectTransform, rewardItem.IconRectTransform);
             }
             else
             {
-                StartRewardAnimation(rewardContent.IconSprite, animationDuration, startRectTransform, rewardItem.IconRectTransform);
-                rewardItem.AddToValue(value, animationDuration);
+                StartRewardAnimation(rewardContent.IconSprite, rewardPanelSettings.RewardMoveAnimationDuration, startRectTransform, rewardItem.IconRectTransform);
+                rewardItem.AddToValue(value, rewardPanelSettings.RewardMoveAnimationDuration);
             }
             
             WheelSingleton.Instance.SetTimout(() =>
             {
                 IsRewardActive = false;
-            }, animationDuration);
+            }, rewardPanelSettings.RewardMoveAnimationDuration);
         }
 
         private void StartRewardAnimation(Sprite rewardSprite, float duration, RectTransform startRectTransform, RectTransform targetRectTransform)
         {
-            rewardAnimationItemList.ForEach(rewardAnimationItem => 
-                rewardAnimationItem.StartAnimation(rewardSprite, duration, startRectTransform, targetRectTransform));
+            foreach (var rewardAnimationItem in rewardAnimationItemList)
+            {
+                rewardAnimationItem.StartAnimation(rewardSprite, duration, startRectTransform, targetRectTransform);
+            }
         }
     }
 }

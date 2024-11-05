@@ -21,6 +21,10 @@ namespace WheelOfFortune.Reward
         public virtual int Id { get; private set; }
         public int Value { get; private set; }
         
+        private readonly Vector3 _iconPunchScaleVector = new (0.3f, 0.3f, 0);
+        private const float IconPunchDuration = 0.3f;
+        private const int ValueChangeAnimationMaxStep = 100;
+        
         public void SetRewardItem(RewardContent rewardContent, int value, float animationDelay)
         {
             RewardType = rewardContent.RewardType;
@@ -31,8 +35,6 @@ namespace WheelOfFortune.Reward
             StartIconPunchScaleAnimation(animationDelay);
             StartValueChangeAnimation(0, Value, 1f, animationDelay);
         }
-
-        private readonly Vector3 _iconPunchScaleVector = new (0.3f, 0.3f, 0);
         
         public void AddToValue(int valueToAdd, float animationDelay)
         {
@@ -43,7 +45,7 @@ namespace WheelOfFortune.Reward
 
         private void StartIconPunchScaleAnimation(float delay)
         {
-            iconRectTransform.DOPunchScale(_iconPunchScaleVector, 0.3f, 1).SetDelay(delay);
+            iconRectTransform.DOPunchScale(_iconPunchScaleVector, IconPunchDuration, 1).SetDelay(delay);
         }
 
         private void SetValueText(int value)
@@ -71,7 +73,7 @@ namespace WheelOfFortune.Reward
         {
             yield return new WaitForSeconds(delay);
             
-            float ratio = (endValue - startValue) / 100f;
+            float ratio = (endValue - startValue) / (float) ValueChangeAnimationMaxStep;
 
             int increaseValue = 1;
             if (ratio > 1)

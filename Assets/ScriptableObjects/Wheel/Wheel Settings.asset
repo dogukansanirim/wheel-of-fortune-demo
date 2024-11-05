@@ -75,6 +75,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 81604f2e82c234c0a95d3a54f1f1a4f1, type: 2}
   sliceCount: 8
   sliceLoadDuration: 0.1
+  sliceAngleMaxDeflectionRatio: 0.25
   spinLoopCount: 5
   spinDuration: 2
   spinEase: 21
@@ -83,3 +84,6 @@ MonoBehaviour:
   basicZoneNumberColor: {r: 1, g: 1, b: 1, a: 1}
   safeZoneNumberColor: {r: 0.08675194, g: 1, b: 0, a: 1}
   superZoneNumberColor: {r: 1, g: 0.8745098, b: 0, a: 1}
+  fadeInOutDuration: 2
+  bombAnimationDuration: 3
+  bombAnimationPunchValue: 30

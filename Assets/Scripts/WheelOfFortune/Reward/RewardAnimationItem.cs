@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +9,11 @@ namespace WheelOfFortune.Reward
     {
         [SerializeField] private Image image;
         [SerializeField] private RectTransform rectTransform;
+
+        private const float SpawnPosXRandomAdditionValueMin = -250f;
+        private const float SpawnPosXRandomAdditionValueMax = 250f;
+        private const float SpawnPosYRandomAdditionValueMin = -500f;
+        private const float SpawnPosYRandomAdditionValueMax = -250f;
         
         public void StartAnimation(Sprite sprite, float duration, RectTransform startRectTransform, RectTransform targetRectTransform)
         {
@@ -26,7 +30,7 @@ namespace WheelOfFortune.Reward
             {
                 rectTransform.SetParent(targetRectTransform);
                 
-                rectTransform.DOAnchorPos(new Vector2(rectTransform.anchoredPosition.x + Random.Range(-250f, 250f), rectTransform.anchoredPosition.y + Random.Range(-500f, -250f)), duration / 2f).SetDelay(0.1f);
+                rectTransform.DOAnchorPos(new Vector2(rectTransform.anchoredPosition.x + Random.Range(SpawnPosXRandomAdditionValueMin, SpawnPosXRandomAdditionValueMax), rectTransform.anchoredPosition.y + Random.Range(SpawnPosYRandomAdditionValueMin, SpawnPosYRandomAdditionValueMax)), duration / 2f).SetDelay(0.1f);
                 rectTransform.DOScale(new Vector3(1f, 1f, 1), duration / 2f).SetDelay(0.1f).onComplete = () =>
                 {
                     rectTransform.DOAnchorPos(Vector2.zero, duration / 2f).onComplete = () =>
@@ -35,6 +39,11 @@ namespace WheelOfFortune.Reward
                     };
                 };
             };
+        }
+
+        private void OnDestroy()
+        {
+            rectTransform.DOKill();
         }
     }
 }

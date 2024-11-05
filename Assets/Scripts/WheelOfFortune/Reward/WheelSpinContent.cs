@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using WheelOfFortune.Helper;
 using WheelOfFortune.Reward.Content;
 
 namespace WheelOfFortune.Reward
@@ -11,6 +12,6 @@ namespace WheelOfFortune.Reward
         public int SpinNo => spinNo;
         
         [SerializeField] private List<RewardContent> sliceRewardContents;
-        public List<RewardContent> SliceRewards => sliceRewardContents;
+        public List<RewardContent> SliceRewards => sliceRewardContents.Shuffle();
     }
 }
